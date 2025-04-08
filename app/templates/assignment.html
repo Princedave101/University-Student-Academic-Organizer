@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+{%from 'bootstrap5/nav.html' import render_nav_item %}
+{% from 'bootstrap5/pagination.html' import render_pagination %}
+
+{% block title %}SOA{% endblock %}
+
+{% block page_content %}
+<div class="container-fluid d-flex flex-column align-items-center">
+{% include '_assignments.html' %}
+{%if pagination%}
+    {{ render_pagination(pagination, endpoint='.assignments') }}
+{%endif%}
+</div>
+{%endblock%}

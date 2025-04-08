@@ -42,3 +42,6 @@ nosetests.xml
 .venv
 
 .idea
+
+# personal config values stored in txt
+config.txt

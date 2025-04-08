@@ -1,5 +1,6 @@
 <!doctype html>
-{% from 'bootstrap4/utils.html' import render_messages %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{%from 'bootstrap5/nav.html' import render_nav_item %}
 <html lang="en">
     <head>
         {% block head %}
@@ -28,9 +29,6 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{{url_for('main.index')}}">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
             </ul>
             <ul class="navbar-nav navbar-right">
               {% if current_user.is_authenticated %}
@@ -56,16 +54,36 @@
 
       <!-- page content -->
       {% block content %}
-        <div class="container-fluid">
+        <div class="container-fluid d-flex flex-column">
           {{render_messages()}}
-          {% block page_content %}{% endblock %}
+            <div class="container-fluid d-flex flex-row">
+              {% if current_user.is_authenticated and request.blueprint != "auth"%}
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  {{render_nav_item('main.index', 'Home')}}
+                </li>
+                <li class="nav-item">
+                  {{render_nav_item('main.set_reminder', 'Set Reminder')}}
+                </li>
+                <li class="nav-item">
+                  {{render_nav_item('main.create_assignment', 'Create Assignment')}}
+                </li>
+                  <li class="nav-item">
+                  {{render_nav_item('main.reminders', 'View All Reminders')}}
+                </li>
+                  <li class="nav-item">
+                  {{render_nav_item('main.assignments', 'View All Assignments')}}
+                </li>
+              </ul>
+              {% endif %}
+              {% block page_content %}{% endblock %}
+            </div>
         </div>
-      </div>
       {% endblock %}
-
-        {% block scripts %}
-            <!-- Optional JavaScript -->
-            {{ bootstrap.load_js() }}
-        {% endblock %}
+      {% block scripts %}
+          <!-- Optional JavaScript -->
+          {{ bootstrap.load_js() }}
+          {{ moment.include_moment() }}
+      {% endblock %}
     </body>
 </html>

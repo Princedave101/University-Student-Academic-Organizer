@@ -4,16 +4,15 @@
 {% block title %}Centric - Login{% endblock %}
 
 {% block page_content %}
-<div class="d-flex flex-column justify-content-center align-items-center">
+<div class="d-flex flex-column justify-content-center align-items-center  w-100">
     <div class="page-header">
         <h1>Login</h1>
     </div>
     <hr>
-    <div class="col-md-4">
+    <div class="w-50">
         {{ render_form(form) }}
         <p>Forgot your password? <a href="{{ url_for('auth.password_reset_request') }}">Click here to reset it</a>.</p>
         <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
     </div>
-    {% endblock %}
-    
 </div>
+{% endblock %}

@@ -4,14 +4,17 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "a very hard secret key to break")
-    MAIL_HOSTNAME = os.getenv("MAIL_HOSTNAME", 'smtp.googlemail.com')
-    MAIL_PORT = os.getenv("MAIL_PORT", 587)
-    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS', 'true').lower() in ['true', 'on', '1']
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+    MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
+    MAIL_PORT = int(os.getenv("MAIL_PORT", 465))
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    FLASK_ADMIN_SWATCH = 'cerulean'
     APP_MAIL_SUBJECT_PREFIX = '[SAO]'
-    APP_MAIL_SENDER = 'SAO Admin <Admin@example.com>'
-    APP_ADMIN = os.getenv("APP_ADMIN")
+    APP_MAIL_SENDER = f'SAO Admin <{MAIL_USERNAME}>'
+    APP_ADMIN = os.getenv("APP_ADMIN", MAIL_USERNAME)
+    CARDS_PER_PAGE = 3
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod
@@ -28,7 +31,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'sqlite://'
+        'sqlite:///' + os.path.join(basedir, 'test-dev.sqlite')
 
 
 class ProductionConfig(Config):

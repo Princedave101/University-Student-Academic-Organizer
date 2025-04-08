@@ -1,0 +1,23 @@
+<div class="page-header">
+  <h1>Assignments</h1>
+</div>
+<div class="row row-cols-1">
+    {% for assignment in assignments%}
+  <div class="col">
+    <div class="card h-100 w-100">
+      <div class="card-body">
+        <h5 class="card-title">{{assignment.title}}</h5>
+        <p class="card-text">{{assignment.description}}</p>
+          <a href="{{url_for('main.assignment', id=assignment.id)}}" class="card-link btn btn-primary">Permanent Link</a>
+        {%if current_user==assignment.user or current_user.is_admin() %}
+        <a href="{{url_for('main.edit_assignment', id=assignment.id)}}" class="card-link btn btn-primary">Edit</a>
+        <a href="{{url_for('main.delete_assignment', id=assignment.id)}}" class="card-link btn btn-danger">Delete</a>
+        {%endif%}
+      </div>
+      <div class="card-footer">
+          <small class="card-text">Submission Date: {{assignment.due_date}}</small>
+      </div>
+    </div>
+  </div>
+    {%endfor%}
+</div>

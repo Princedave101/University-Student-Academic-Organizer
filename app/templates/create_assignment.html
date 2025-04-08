@@ -1,17 +1,17 @@
-{% from 'bootstrap4/form.html' import render_form %}
 {% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+{%from 'bootstrap5/nav.html' import render_nav_item %}
 
-{% block title %}Centric - Change Email Address{% endblock %}
+{% block title %}SOA-Create Assignment{% endblock %}
 
 {% block page_content %}
-
 <div class="d-flex flex-column justify-content-center align-items-center w-100">
     <div class="page-header">
-        <h1>Change Your Email Address</h1>
+        <h1>Create Assignment</h1>
     </div>
     <hr>
     <div class="w-50">
         {{ render_form(form) }}
     </div>
-    {% endblock %}
 </div>
+{%endblock%}
